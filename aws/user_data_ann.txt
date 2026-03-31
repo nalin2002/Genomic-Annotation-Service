@@ -1,0 +1,19 @@
+#!/bin/bash
+set -e
+
+exec > /var/log/user-data-ann.log 2>&1
+
+cd /home/ubuntu
+
+rm -rf gas
+rm -f gas.zip
+
+aws s3 cp s3://mpcs-students/nalinprabhath/gas.zip gas.zip
+unzip gas.zip
+
+chown -R ubuntu:ubuntu gas
+chmod -R u+rwX gas
+
+/home/ubuntu/.virtualenvs/mpcs/bin/pip install boto3 pymysql
+
+sudo -u ubuntu bash -lc "cd /home/ubuntu/gas/ann && nohup /home/ubuntu/.virtualenvs/mpcs/bin/python annotator.py > annotator.log 2>&1 &"

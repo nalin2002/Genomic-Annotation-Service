@@ -1,0 +1,18 @@
+#!/bin/bash
+set -euo pipefail
+
+exec > /var/log/user-data-web.log 2>&1
+
+cd /home/ubuntu
+
+rm -rf /home/ubuntu/gas
+rm -f /home/ubuntu/gas.zip
+
+aws s3 cp s3://mpcs-students/nalinprabhath/gas.zip /home/ubuntu/gas.zip
+
+unzip /home/ubuntu/gas.zip -d /home/ubuntu
+
+chown -R ubuntu:ubuntu /home/ubuntu/gas
+chmod -R u+rwX /home/ubuntu/gas
+
+sudo -u ubuntu bash -lc "cd /home/ubuntu/gas && nohup ./run_gas.sh > /home/ubuntu/gas/web_server.log 2>&1 &"

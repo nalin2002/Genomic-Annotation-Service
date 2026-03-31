@@ -1,0 +1,88 @@
+<!-- annotation.html -->
+
+{% extends "base.html" %}
+
+{% block title %}Annotation Details{% endblock %}
+
+{% block body %}
+
+    {% include "header.html" %}
+
+    <div class="container">
+
+        <div class="page-header">
+            <h1>Annotation Details</h1>
+        </div>
+
+        <!-- DISPLAY ANNOTATION JOB DETAILS -->
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <th style="width: 220px;">Request/Job ID</th>
+                    <td>{{ job['job_id'] }}</td>
+                </tr>
+
+                <tr>
+                    <th>Request Time</th>
+                    <td>{{ job.get('request_time_local', '—') }}</td>
+                </tr>
+
+                <tr>
+                    <th>VCF Input File</th>
+                    <td>
+                        <a href="{{ url_for('download_input_file', id=job['job_id']) }}">
+                            {{ job.get('input_file_name', '—') }}
+                        </a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>Status</th>
+                    <td>{{ job.get('job_status', '—') }}</td>
+                </tr>
+
+                {% if job.get('job_status') == 'COMPLETED' %}
+                    <tr>
+                        <th>Complete Time</th>
+                        <td>{{ job.get('complete_time_local', '—') }}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Annotated Results File</th>
+                        <td>
+                            {% if job.get('results_file_archive_id') %}
+
+                              {% if session['role'] == 'free_user' %}
+                                <a href="{{ url_for('subscribe') }}">Upgrade to Premium for download</a>
+
+                              {% elif job.get('results_file_restore_job_id') %}
+                                File is being restored; please check back later
+
+                              {% else %}
+                                File archived. Restore will begin shortly.
+
+                              {% endif %}
+
+                            {% else %}
+                              <a href="{{ url_for('download_results_file', id=job['job_id']) }}">Download</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>Annotation Log File</th>
+                        <td>
+                            <a href="{{ url_for('annotation_log', id=job['job_id']) }}">View</a>
+                        </td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+
+        <hr />
+
+        <a href="{{ url_for('annotations_list') }}">&larr; back to annotations list</a>
+
+    </div> <!-- container -->
+
+{% endblock %}
