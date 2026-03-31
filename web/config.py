@@ -150,9 +150,9 @@ class Config(object):
     # ************************************************************************
 
     # Stripe
-    STRIPE_PUBLIC_KEY = "pk_test_51T6wtKJtzJiJwJYdhb63HupZGkI13iOlARwnRc5Pzn8aiKUbZ0mo9YS9Y9KRHaxbFYiEknNoIbjOLkWVZ2zsf5tS002QBLBkTl"
-    STRIPE_SECRET_KEY = "sk_test_51T6wtKJtzJiJwJYdHGyX08XcbyOG17FFtFcSwQUUDKTDv669gARMDBahYbzULMReOQHCNrKnM1zrgtehqZqBoi5N00ywFTSoho"
-    STRIPE_PRICE_ID = "price_1T6ww1JtzJiJwJYdAvE8weY6"
+    STRIPE_PUBLIC_KEY =""
+    STRIPE_SECRET_KEY = " "
+    STRIPE_PRICE_ID = ""
 
     CNETID = 'nalinprabhath'
     # Set validity of pre-signed POST requests (in seconds)
