@@ -7,9 +7,8 @@ Directory contents are as follows:
 * `/util` - Utility scripts/apps for notifications, archival, and restoration
 * `/aws` - AWS user data files
 
-## Assignment-16 Writeup
 
-Exercise Implemented:
+Project Implemented:
 
 When a user upgrades from a Free account to a Premium account, any of their previously archived result 
 files must be restored from Glacier so that they can again download their data. The thawing and 
